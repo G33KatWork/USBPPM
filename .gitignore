@@ -1,0 +1,11 @@
+*.o
+*.lst
+*.eep
+*.elf
+*.hex
+*.lss
+*.map
+*.sym
+.dep
+ppmhost
+

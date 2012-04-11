@@ -1,0 +1,21 @@
+#ifndef _USB_H_
+#define _USB_H_
+
+#define CTRL_IN     (LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_ENDPOINT_IN)
+#define CTRL_OUT    (LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_ENDPOINT_OUT)
+
+#define USBPPM_STREAM_OUT_EPNUM    0x1
+
+/**
+ * This enum contains all USB control requests the device supports
+**/
+enum CONTROL_REQUESTS
+{
+  REQUEST_SINGLECHANNEL = 0x01,
+  REQUEST_ALLCHANNELS = 0x02,
+  REQUEST_GETCHANNELCOUNT = 0x03,
+  REQUEST_UPDATE = 0xF0
+};
+
+#endif
+
