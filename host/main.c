@@ -13,10 +13,11 @@
 
 #define NUM_AXIS        4
 #define NUM_AUX         3
-#define OUT_MAX         100
-#define OUT_MIN         -100
+#define OUT_MAX         80
+#define OUT_MIN         -80
 #define IN_MAX          SHRT_MAX
 #define IN_MIN          SHRT_MIN
+#define DEAD_BAND       10
 
 //PPM-Channels
 #define RFCHAN_THROTTLE  0
@@ -61,9 +62,25 @@ typedef struct {
 
 int8_t getAxis(SDL_Joystick* joystick, int axis)
 {
+  //This function is relatively disgusting...
   short a = SDL_JoystickGetAxis(joystick, axis);
+  int8_t foo = (int8_t)MAP(a, IN_MIN, IN_MAX, OUT_MIN, OUT_MAX);
   printf("Axis %i: %i\n", axis, a);
-  return (int8_t)MAP(a, IN_MIN, IN_MAX, OUT_MIN, OUT_MAX);
+
+  int8_t sign = 1;
+  if(foo < (int8_t)(OUT_MAX + OUT_MIN))
+    sign = -1;
+
+  if(abs(foo) < DEAD_BAND)
+    foo = 0;
+  else if(sign == -1)
+    foo = (int8_t)MAP(foo, DEAD_BAND*-1, OUT_MIN, 0, OUT_MIN);
+  else
+    foo = (int8_t)MAP(foo, DEAD_BAND, OUT_MAX, 0, OUT_MAX);
+
+  printf("Axis %i: %i\n", axis, foo);
+
+  return foo;
 }
 
 int8_t getBtn(SDL_Joystick* joystick, int btn)
