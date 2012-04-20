@@ -163,7 +163,7 @@ int main(int argc, char* argv[])
     ctrlState->throttle = getAxis(joy, AXIS_THROTTLE) * INVERT_THROTTLE;
     ctrlState->pitch = getAxis(joy, AXIS_PITCH) * INVERT_PITCH;
     ctrlState->yaw = getAxis(joy, AXIS_YAW) * INVERT_YAW;
-    ctrlState->roll = getAxis(joy, AXIS_ROLL) * INVERT_PITCH;
+    ctrlState->roll = getAxis(joy, AXIS_ROLL) * INVERT_ROLL;
   
     ctrlState->aux1 *= getBtn(joy, BTN_AUX1);
     ctrlState->aux2 *= getBtn(joy, BTN_AUX2);
